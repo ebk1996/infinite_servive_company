@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Matrix Services - Industrial construction, fabrication, and maintenance services with a beautiful photo gallery powered by Unsplash." />
+    <meta name="keywords" content="Matrix Services, industrial construction, fabrication, maintenance, photo gallery, Unsplash" />
+    <meta name="author" content="Matrix Services" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Matrix Services - Photo Gallery" />
+    <meta property="og:description" content="Discover beautiful industrial and construction photos in our gallery." />
+    <meta property="og:image" content="/vite.svg" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Matrix Services - Photo Gallery" />
+    <meta property="twitter:description" content="Discover beautiful industrial and construction photos in our gallery." />
+    
+    <!-- Preconnect to external domains for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://api.unsplash.com" />
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Favicon alternatives for different devices -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/vite.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/vite.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/vite.svg" />
+    
+    <title>Matrix Services - Photo Gallery</title>
+    
+    <!-- Inline critical CSS to prevent FOUC (Flash of Unstyled Content) -->
+    <style>
+      /* Critical CSS - loaded immediately to prevent layout shifts */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+      
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8fafc;
+        overflow-x: hidden;
+      }
+      
+      #root {
+        min-height: 100vh;
+        position: relative;
+      }
+      
+      /* Loading spinner for initial page load */
+      .initial-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .initial-loader.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .loader-spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      .loader-text {
+        color: white;
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: 500;
+        text-align: center;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Prevent layout shift for images */
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      /* Focus styles for accessibility */
+      button:focus,
+      input:focus,
+      a:focus {
+        outline: 2px solid #4f46e5;
+        outline-offset: 2px;
+      }
+      
+      /* Smooth transitions for all elements */
+      * {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+      }
+      
+      /* Firefox scrollbar */
+      html {
+        scrollbar-width: thin;
+        scrollbar-color: #667eea #f1f1f1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Initial loading screen -->
+    <div id="initial-loader" class="initial-loader">
+      <div style="text-align: center;">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Loading Matrix Services...</div>
+      </div>
+    </div>
+    
+    <div id="root"></div>
+    
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Remove loader once React app is ready -->
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const loader = document.getElementById('initial-loader');
+          if (loader) {
+            loader.classList.add('fade-out');
+            setTimeout(function() {
+              loader.remove();
+            }, 500);
+          }
+        }, 1000); // Show loader for at least 1 second
+      });
+      
+      // Remove loader if there's an error
+      window.addEventListener('error', function() {
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+          loader.remove();
+        }
+      });
+    </script>
+  </body>
+</html>
